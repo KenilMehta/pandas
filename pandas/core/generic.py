@@ -11222,9 +11222,8 @@ def _make_logical_function(
                 raise NotImplementedError(
                     "Option bool_only is not implemented with option level."
                 )
-            if isinstance(self, pd.Series):
-                if self.dtype.name == "boolean":
-                     return self._agg_by_level(name, axis=axis, level=level, skipna=skipna).astype("boolean")
+            if isinstance(self, pd.Series) and self.dtype.name == "boolean":
+                return self._agg_by_level(name, axis=axis, level=level, skipna=skipna).astype("boolean")
             return self._agg_by_level(name, axis=axis, level=level, skipna=skipna)
         return self._reduce(
             func,
